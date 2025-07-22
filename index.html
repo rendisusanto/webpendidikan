@@ -20,13 +20,6 @@
         <a href="#tentang" class="hover:text-blue-200">Tentang</a>
         <a href="#kontak" class="hover:text-blue-200">Kontak</a>
       </nav>
-      <button class="md:hidden">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
-             viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round"
-                stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
-        </svg>
-      </button>
     </div>
   </header>
 
@@ -58,23 +51,56 @@
   <!-- Kuis -->
   <section id="kuis" class="py-16 bg-white text-center">
     <h3 class="text-3xl font-bold text-blue-800 mb-10">Kuis EduSmart</h3>
-    <div class="max-w-xl mx-auto bg-blue-50 p-6 rounded-xl shadow-lg">
-      <p class="text-lg font-medium mb-4">1. Apa ibu kota Indonesia?</p>
-      <form id="quizForm" class="space-y-4 text-left">
-        <label class="block">
-          <input type="radio" name="q1" value="a" class="mr-2" /> Surabaya
-        </label>
-        <label class="block">
-          <input type="radio" name="q1" value="b" class="mr-2" /> Jakarta
-        </label>
-        <label class="block">
-          <input type="radio" name="q1" value="c" class="mr-2" /> Bandung
-        </label>
-        <button type="submit" class="mt-4 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded">
-          Kirim Jawaban
-        </button>
-      </form>
-      <p id="quizResult" class="mt-4 font-semibold text-blue-700"></p>
+    <div class="max-w-2xl mx-auto space-y-10">
+
+      <!-- Soal 1 -->
+      <div class="bg-blue-50 p-6 rounded-xl shadow">
+        <p class="text-lg font-medium mb-4">1. Apa ibu kota Indonesia?</p>
+        <form class="quiz" data-answer="b">
+          <label><input type="radio" name="q1" value="a" class="mr-2"> Surabaya</label><br>
+          <label><input type="radio" name="q1" value="b" class="mr-2"> Jakarta</label><br>
+          <label><input type="radio" name="q1" value="c" class="mr-2"> Bandung</label><br>
+          <button class="mt-3 bg-blue-600 hover:bg-blue-700 text-white px-4 py-1 rounded">Kirim</button>
+          <p class="result mt-3 text-blue-700 font-semibold"></p>
+        </form>
+      </div>
+
+      <!-- Soal 2 -->
+      <div class="bg-blue-50 p-6 rounded-xl shadow">
+        <p class="text-lg font-medium mb-4">2. Bahasa resmi negara Jepang adalah?</p>
+        <form class="quiz" data-answer="a">
+          <label><input type="radio" name="q2" value="a" class="mr-2"> Bahasa Jepang</label><br>
+          <label><input type="radio" name="q2" value="b" class="mr-2"> Bahasa Korea</label><br>
+          <label><input type="radio" name="q2" value="c" class="mr-2"> Bahasa Mandarin</label><br>
+          <button class="mt-3 bg-blue-600 hover:bg-blue-700 text-white px-4 py-1 rounded">Kirim</button>
+          <p class="result mt-3 text-blue-700 font-semibold"></p>
+        </form>
+      </div>
+
+      <!-- Soal 3 (Matematika) -->
+      <div class="bg-blue-50 p-6 rounded-xl shadow">
+        <p class="text-lg font-medium mb-4">3. Hasil dari 12 × 4 adalah?</p>
+        <form class="quiz" data-answer="c">
+          <label><input type="radio" name="q3" value="a" class="mr-2"> 36</label><br>
+          <label><input type="radio" name="q3" value="b" class="mr-2"> 40</label><br>
+          <label><input type="radio" name="q3" value="c" class="mr-2"> 48</label><br>
+          <button class="mt-3 bg-blue-600 hover:bg-blue-700 text-white px-4 py-1 rounded">Kirim</button>
+          <p class="result mt-3 text-blue-700 font-semibold"></p>
+        </form>
+      </div>
+
+      <!-- Soal 4 (Matematika) -->
+      <div class="bg-blue-50 p-6 rounded-xl shadow">
+        <p class="text-lg font-medium mb-4">4. Berapa hasil dari (25 + 15) : 4?</p>
+        <form class="quiz" data-answer="b">
+          <label><input type="radio" name="q4" value="a" class="mr-2"> 8</label><br>
+          <label><input type="radio" name="q4" value="b" class="mr-2"> 10</label><br>
+          <label><input type="radio" name="q4" value="c" class="mr-2"> 12</label><br>
+          <button class="mt-3 bg-blue-600 hover:bg-blue-700 text-white px-4 py-1 rounded">Kirim</button>
+          <p class="result mt-3 text-blue-700 font-semibold"></p>
+        </form>
+      </div>
+
     </div>
   </section>
 
@@ -91,21 +117,22 @@
     <p>&copy; 2025 EduSmart. Semua hak dilindungi.</p>
   </footer>
 
-  <!-- Script -->
+  <!-- JavaScript Kuis -->
   <script>
-    const form = document.getElementById('quizForm');
-    const result = document.getElementById('quizResult');
-
-    form.addEventListener('submit', function(e) {
-      e.preventDefault();
-      const answer = form.q1.value;
-      if (answer === "b") {
-        result.textContent = "✅ Jawaban benar! Jakarta adalah ibu kota Indonesia.";
-      } else if (answer) {
-        result.textContent = "❌ Jawaban salah. Coba lagi!";
-      } else {
-        result.textContent = "⚠️ Silakan pilih salah satu jawaban.";
-      }
+    document.querySelectorAll('.quiz').forEach(form => {
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const selected = form.querySelector('input[type="radio"]:checked');
+        const correct = form.getAttribute('data-answer');
+        const result = form.querySelector('.result');
+        if (!selected) {
+          result.textContent = "⚠️ Pilih salah satu jawaban!";
+        } else if (selected.value === correct) {
+          result.textContent = "✅ Jawaban benar!";
+        } else {
+          result.textContent = "❌ Jawaban salah.";
+        }
+      });
     });
   </script>
 
