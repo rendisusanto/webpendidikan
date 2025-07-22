@@ -125,7 +125,7 @@
       }
 
       try {
-        const response = await fetch("http://localhost:3000/submit-kuis", {
+        const response = await fetch("https://edusijaxpert-rendi.vercel.app/", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ jawaban })
