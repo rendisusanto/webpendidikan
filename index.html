@@ -16,6 +16,7 @@
       <nav class="space-x-6 hidden md:flex">
         <a href="#beranda" class="hover:text-blue-200">Beranda</a>
         <a href="#fitur" class="hover:text-blue-200">Fitur</a>
+        <a href="#kuis" class="hover:text-blue-200">Kuis</a>
         <a href="#tentang" class="hover:text-blue-200">Tentang</a>
         <a href="#kontak" class="hover:text-blue-200">Kontak</a>
       </nav>
@@ -54,6 +55,29 @@
     </div>
   </section>
 
+  <!-- Kuis -->
+  <section id="kuis" class="py-16 bg-white text-center">
+    <h3 class="text-3xl font-bold text-blue-800 mb-10">Kuis EduSmart</h3>
+    <div class="max-w-xl mx-auto bg-blue-50 p-6 rounded-xl shadow-lg">
+      <p class="text-lg font-medium mb-4">1. Apa ibu kota Indonesia?</p>
+      <form id="quizForm" class="space-y-4 text-left">
+        <label class="block">
+          <input type="radio" name="q1" value="a" class="mr-2" /> Surabaya
+        </label>
+        <label class="block">
+          <input type="radio" name="q1" value="b" class="mr-2" /> Jakarta
+        </label>
+        <label class="block">
+          <input type="radio" name="q1" value="c" class="mr-2" /> Bandung
+        </label>
+        <button type="submit" class="mt-4 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded">
+          Kirim Jawaban
+        </button>
+      </form>
+      <p id="quizResult" class="mt-4 font-semibold text-blue-700"></p>
+    </div>
+  </section>
+
   <!-- Tentang -->
   <section id="tentang" class="bg-blue-50 py-16 text-center">
     <h3 class="text-3xl font-bold text-blue-800 mb-4">Tentang EduSmart</h3>
@@ -66,6 +90,24 @@
   <footer id="kontak" class="bg-blue-700 text-white text-center py-6">
     <p>&copy; 2025 EduSmart. Semua hak dilindungi.</p>
   </footer>
+
+  <!-- Script -->
+  <script>
+    const form = document.getElementById('quizForm');
+    const result = document.getElementById('quizResult');
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const answer = form.q1.value;
+      if (answer === "b") {
+        result.textContent = "✅ Jawaban benar! Jakarta adalah ibu kota Indonesia.";
+      } else if (answer) {
+        result.textContent = "❌ Jawaban salah. Coba lagi!";
+      } else {
+        result.textContent = "⚠️ Silakan pilih salah satu jawaban.";
+      }
+    });
+  </script>
 
 </body>
 </html>
