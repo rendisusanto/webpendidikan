@@ -1,32 +1,35 @@
-// server.js
-const express = require("express");
-const cors = require("cors");
-
+const express = require('express');
+const cors = require('cors');
 const app = express();
-const PORT = 3000;
 
-// Middleware
 app.use(cors());
 app.use(express.json());
 
-// Kunci jawaban (urut sesuai soal)
-const kunciJawaban = ["b", "a", "c", "b"];
+app.post('/submit-kuis', (req, res) => {
+  const jawaban = req.body;
+  let benar = 0;
 
-app.post("/submit-kuis", (req, res) => {
-  const jawaban = req.body.jawaban;
+  // contoh logika penilaian sederhana
+  const kunci = {
+    soal1: "a",
+    soal2: "b",
+    soal3: "c",
+    soal4: "a",
+    soal5: "b"
+  };
 
-  if (!Array.isArray(jawaban) || jawaban.length !== kunciJawaban.length) {
-    return res.status(400).json({ error: "Jawaban tidak valid" });
-  }
+  Object.keys(kunci).forEach((k) => {
+    if (jawaban[k] === kunci[k]) benar++;
+  });
 
-  let skor = 0;
-  for (let i = 0; i < kunciJawaban.length; i++) {
-    if (jawaban[i] === kunciJawaban[i]) skor++;
-  }
-
-  res.json({ skor, total: kunciJawaban.length });
+  res.json({
+    skor: benar,
+    total: Object.keys(kunci).length,
+    pesan: `Skor kamu: ${benar} dari ${Object.keys(kunci).length}`
+  });
 });
 
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-  console.log("Server is running on http://localhost:3000");
+  console.log(`Server berjalan di port ${PORT}`);
 });

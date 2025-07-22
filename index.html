@@ -125,11 +125,12 @@
       }
 
       try {
-        const response = await fetch("http://localhost:3000/submit-kuis", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ jawaban })
-        });
+        fetch("https://edusmart-backend-production.up.railway.app/submit-kuis", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify(jawaban),
+})
+
 
         const data = await response.json();
 
